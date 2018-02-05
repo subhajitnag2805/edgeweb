@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TestComponent } from './test/test.component';
 import { RouterModule, Routes } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';  //<<<< import it here
+import { ChartsModule } from 'ng2-charts';
+import { HttpService } from './http.service';
 
 //route configuartion
 const appRoutes: Routes = [
@@ -21,10 +24,12 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    TestComponent
+    TestComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ChartsModule,
 
     // router module
     RouterModule.forRoot(
@@ -33,7 +38,7 @@ const appRoutes: Routes = [
     )
     // other imports here
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

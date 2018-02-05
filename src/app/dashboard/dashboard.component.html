@@ -1,3 +1,44 @@
-<p>
-  dashboard works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="well well-sm">
+        <div class="media">
+          <a class="thumbnail pull-left" href="#">
+            <img class="media-object" height="75" width="75" src="http://spotter.bpac.in/web/images/app/admin.png">
+          </a>
+          <div class="media-body" style="padding-left:10px;">
+            <h4 class="media-heading">Pushpendu Ghosh</h4>
+
+            <p>
+              <span class="btn btn-info">24</span>
+              <span class="btn btn-warning">Male</span>
+              <span class="btn btn-danger">
+                <span class="glyphicon glyphicon-log-out"></span>Logout
+              </span>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row" style="margin-top:50px;">
+    <div class="col-sm" (click)="startTest('temp')">
+      <img class="center" height="160" width="150" src="https://cdn4.iconfinder.com/data/icons/weather-conditions/512/hot_temperature-512.png"
+      />
+    </div>
+    <div class="col-sm" (click)="startTest('bp')">
+      <img height="160" width="150" src="https://cdn2.iconfinder.com/data/icons/medical-and-health-care-service-icons/512/2-05-256.png"
+      />
+    </div>
+    <div class="col-sm" (click)="startTest('emg')">
+      <img height="160" width="150" src="http://e-health.futurenet.com.pk/images/emg.png" />
+    </div>
+    <div class="col-sm" (click)="startTest('ecg')">
+      <img height="160" width="150" src="https://cdn0.iconfinder.com/data/icons/medical-5/450/pulse-512.png" />
+    </div>
+  </div>
+
+</div>

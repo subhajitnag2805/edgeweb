@@ -1,3 +1,32 @@
-<p>
-  test works!
-</p>
+<div class="container">
+  <!-- initial state -->
+  <div class="row">
+    <div class="col-md-3 center">
+      <a class="lead">{{instruction}}</a>
+    </div>
+  </div>
+  <div class="progress" [hidden]="testType == ''">
+    <div class="progress-bar" id="tempbar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+    </div>
+  </div>
+  <div class="row" [hidden]="testType != ''">
+    <div class="col-md-3 center">
+      <a class="btn btn-primary btn-lg btn-block btn-huge" (click)="startTest()">Start Test</a>
+    </div>
+  </div>
+
+  <div class="row" [hidden]="testType != 'ecg'" style="padding-top:50px;">
+    <div class="col-md-6">
+      <div style="display: block;">
+        <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+      </div>
+    </div>
+    <!-- <div class="col-md-6" style="margin-bottom: 10px">
+      <button (click)="push()">CLICK</button>
+    </div>
+    <div class="col-md-6" style="margin-bottom: 10px">
+      <button (click)="reset()">CLICK</button>
+    </div> -->
+  </div>
+</div>
