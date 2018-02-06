@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { setTimeout, clearInterval } from 'timers';
+import io from 'socket.io-client';
 
 @Component({
   selector: 'app-test',
@@ -12,6 +13,7 @@ export class TestComponent implements OnInit {
   public instruction: any = "Press start test button to continue";
   //others
   router: Router;
+  socket: any;
 
   public testType: string = ""; // temp , bp, ecg , emg
 
@@ -40,16 +42,21 @@ export class TestComponent implements OnInit {
 
   constructor(_router: Router) {
     this.router = _router;
+    this.socket = io('http://localhost:7000');
   }
 
   startTest() {
+
     this.testType = this.router.url.split('/')[2];
     let _base = this;
 
     switch (this.testType) {
       case 'temp':
         _base.instruction = "Getting temperature";
-        _base.tempTimer(50);
+        _base.tempTimer(5)
+          .then(function () {
+            _base.socket.emit('start', { status: '200' });
+          });
         break;
       case 'bp':
         _base.instruction = "Getting B.P data";

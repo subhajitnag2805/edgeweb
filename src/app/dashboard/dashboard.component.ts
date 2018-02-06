@@ -28,6 +28,21 @@ export class DashboardComponent implements OnInit {
         _base.currentUser = success.profile;
         localStorage.setItem("userid", _base.currentUser._id);
         _base.age = _base.getAge(_base.currentUser.dob);
+        let sessionTime = new Date().getTime().toString();
+        localStorage.setItem("session", sessionTime);
+        let localRegisterData = {
+          name: _base.currentUser.name,
+          email: _base.currentUser.email,
+          id: _base.currentUser._id,
+          loginTime: new Date(),
+          time: sessionTime
+        };
+        _base.http.localRegister(localRegisterData)
+          .then(function (success) {
+            alert("You have been registerted locally");
+          }, function (error) {
+            console.log(error);
+          });
       }, function (error) {
         alert('Error fetching user ');
       });
