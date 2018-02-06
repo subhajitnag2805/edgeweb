@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         .then(function (success) {
           console.log(success);
           _base.currentState = "phone";
-          _base.router.navigate(['/dashboard', _base.userID]);
+          _base.router.navigate(['/dashboard', _base.phone]);
         }, function (error) {
           console.log(error);
           alert("Error ! try again");

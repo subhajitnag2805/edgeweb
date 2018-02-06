@@ -12,24 +12,38 @@ export class DashboardComponent implements OnInit {
   //others
   router: Router;
   http: any;
-  userID: string;
+  phone: string;
+  age: any;
+
+  currentUser: any = {};
 
   constructor(_router: Router, _http: HttpService) {
-    this.router = _router;
-    this.http = _http;
-    this.userID = this.router.url.split('/')[2];
-    console.log(this.userID);
-    this.getUser(this.userID);
+    let _base = this;
+    _base.router = _router;
+    _base.http = _http;
+    _base.phone = this.router.url.split('/')[2];
+    console.log(this.phone);
+    this.getUser(this.phone)
+      .then(function (success: any) {
+        _base.currentUser = success.profile;
+        localStorage.setItem("userid", _base.currentUser._id);
+        _base.age = _base.getAge(_base.currentUser.dob);
+      }, function (error) {
+        alert('Error fetching user ');
+      });
   }
 
-  getUser(userID: string) {
+  getUser(phone: string) {
     let _base = this;
-    _base.http.getUser(userID)
-      .then(function (success) {
-        console.log(success);
-      }, function (error) {
-        console.log(error);
-      });
+    return new Promise(function (resolve, reject) {
+      _base.http.getUser(phone)
+        .then(function (success) {
+          resolve(success);
+        }, function (error) {
+          reject(error);
+          this.router.navigate(['/login']);
+        });
+    });
   }
 
   ngOnInit() {
@@ -39,5 +53,12 @@ export class DashboardComponent implements OnInit {
   startTest(type: string) {
     this.router.navigate(['/test', type]);
   }
+
+  public getAge(date) {
+    var now = new Date();
+    var bdate = new Date(date);
+    var age = now.getFullYear() - bdate.getFullYear();
+    return age;
+  };
 
 }

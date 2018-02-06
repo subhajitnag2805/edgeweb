@@ -63,28 +63,25 @@ export class HttpService {
   }
 
   // get user by user ID
-  getUser(userID: string) {
+  getUser(phone: string) {
     let _base = this;
+    let postData = {
+      phoneNumber: phone,
+      role: 'individual'
+    };
     // ...using get request
     return new Promise(function (resolve, reject) {
-      
       // let bodyString = JSON.stringify(body); // Stringify payload
       let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-      let myParams = new URLSearchParams();
-      myParams.append('_id', userID);
-      let options = new RequestOptions({ headers: headers, params: myParams }); // Create a request option
-      return _base.http.get(_base.baseURL + '/individual/getindividualDetails?_id=' + userID)
+      let options = new RequestOptions({ headers: headers }); // Create a request option
+      return _base.http.post(_base.baseURL + '/user/login', postData, options)
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
         .subscribe(
         success => {
-          console.log(userID);
-          
           resolve(success);
         },
         err => {
-          console.log(userID);
-          
           reject(err);
         });
     });

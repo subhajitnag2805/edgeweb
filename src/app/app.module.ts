@@ -15,7 +15,7 @@ import { HttpService } from './http.service';
 //route configuartion
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard/:id', component: DashboardComponent },
+  { path: 'dashboard/:phone', component: DashboardComponent },
   { path: 'test/:type', component: TestComponent },
 ];
 
