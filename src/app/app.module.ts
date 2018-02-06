@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -30,11 +31,12 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ChartsModule,
+    HttpModule,
 
     // router module
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {} // <-- debugging purposes only enableTracing: true
     )
     // other imports here
   ],

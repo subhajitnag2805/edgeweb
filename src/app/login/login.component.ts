@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { HttpService } from '../http.service';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-login',
@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
   router: Router;
   http: any;
 
-  constructor(_router: Router) {
+  constructor(_router: Router, http: HttpService) {
     this.currentState = "phone";
     this.router = _router;
-    // this.http = http;
+    this.http = http;
   }
 
   ngOnInit() {
@@ -36,16 +36,29 @@ export class LoginComponent implements OnInit {
   public submit() {
     let _base = this;
     if (this.currentState == "phone") {
-      this.currentState = "code";
-      // _base.http.sendOTP(_base.phone)
-      //   .then(function (success) {
-      //     console.log(success);
-      //   }, function (error) {
-      //     console.log(error);
-      //   });
+      _base.http.sendOTP(_base.phone)
+        .then(function (success) {
+          console.log(success);
+          if (success.profile) {
+            _base.userID = success.profile._id;
+            _base.currentState = "code";
+          } else {
+            alert("Not an meme.care user. Please register on the app.");
+          }
+        }, function (error) {
+          console.log(error);
+          alert("Error ! try again");
+        });
     } else {
-      this.currentState = "phone";
-      this.router.navigate(['/dashboard', _base.userID]);
+      _base.http.verifyOTP(_base.code, _base.phone)
+        .then(function (success) {
+          console.log(success);
+          _base.currentState = "phone";
+          _base.router.navigate(['/dashboard', _base.userID]);
+        }, function (error) {
+          console.log(error);
+          alert("Error ! try again");
+        });
     }
   }
 
