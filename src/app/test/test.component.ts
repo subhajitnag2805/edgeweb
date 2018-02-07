@@ -132,7 +132,16 @@ export class TestComponent implements OnInit {
 
   public render(type: string, data: any) {
     let _base = this;
-    _base.instruction = "Current " + type + " value is : " + data;
+    if (type == 'temperature') {
+      _base.instruction = "Current " + type + " is : " + data + " °  or " + this._temp_cTof(data) + "  ° F";
+    } else {
+      _base.instruction = "Current " + type + " value is : " + data;
+    }
+  }
+
+  public _temp_cTof(celsius) {
+    // parseFloat
+    return celsius * 9 / 5 + 32;
   }
 
 }
