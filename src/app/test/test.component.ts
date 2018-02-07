@@ -54,7 +54,7 @@ export class TestComponent implements OnInit {
     this.socket = io('http://localhost:7000');
     this.http = _http;
     let _base = this;
-    if (localStorage.getItem(_base.testType) != undefined || localStorage.getItem(_base.testType) != null) {
+    if (localStorage.getItem(_base.router.url.split('/')[2]) != undefined || localStorage.getItem(_base.router.url.split('/')[2]) != null) {
       _base.currentTestID = localStorage.getItem(_base.testType);
     }
   }
