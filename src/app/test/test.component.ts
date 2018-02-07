@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { setTimeout, clearInterval } from 'timers';
-import io from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css']
 })
+
 export class TestComponent implements OnInit {
 
   public instruction: any = "Press start test button to continue";
