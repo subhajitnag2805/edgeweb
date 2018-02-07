@@ -198,7 +198,7 @@ export class TestComponent implements OnInit {
   dashboardPage() {
     this.router.navigate(['/dashboard', localStorage.getItem("phone")]);
     let _base = this;
-    _base.socket.off(_base.socketID);
+    _base.socket.off('value');
   }
 
   retryTest() {
