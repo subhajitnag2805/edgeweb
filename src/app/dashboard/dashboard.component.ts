@@ -30,7 +30,8 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem("userid", _base.currentUser._id);
         _base.age = _base.getAge(_base.currentUser.dob);
 
-        if (!localStorage.getItem("session")) {
+        console.log("Localstorage session", localStorage.getItem("session"));
+        if (localStorage.getItem("session") == undefined || localStorage.getItem("session") == null) {
           let sessionTime = new Date().getTime().toString();
           localStorage.setItem("session", sessionTime);
           let localRegisterData = {
