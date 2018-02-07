@@ -18,6 +18,8 @@ export class TestComponent implements OnInit {
   socket: any;
   http: any;
 
+  public socketID: any;
+
   public currentTestID: String = '';
 
   public isTestDone: boolean = false;
@@ -111,7 +113,7 @@ export class TestComponent implements OnInit {
   // socket subscriber
   ngOnInit() {
     let _base = this;
-    _base.socket.on("value", function (data) {
+    _base.socketID = _base.socket.on("value", function (data) {
       let value = data.value;
       let status = data.status;
       _base.render(status, value);
@@ -178,6 +180,7 @@ export class TestComponent implements OnInit {
 
   saveTestData(sensorData: any) {
     let _base = this;
+
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
         _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0]._id;
@@ -194,6 +197,8 @@ export class TestComponent implements OnInit {
 
   dashboardPage() {
     this.router.navigate(['/dashboard', localStorage.getItem("phone")]);
+    let _base = this;
+    _base.socket.off(_base.socketID);
   }
 
   retryTest() {
