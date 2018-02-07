@@ -56,7 +56,9 @@ export class TestComponent implements OnInit {
         _base.instruction = "Getting temperature";
         _base.tempTimer(5)
           .then(function () {
+            console.log("socket emit start");
             _base.socket.emit('start', { status: '200' });
+            console.log("socket emit end");
           });
         break;
       case 'bp':
@@ -93,6 +95,7 @@ export class TestComponent implements OnInit {
         bar.style.width = progress + "%";
         if (time == totaltime) {
           clearInterval(interval);
+          console.log("Interval ended");
           resolve(true);
         }
       }, 1000);
