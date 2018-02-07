@@ -12,7 +12,7 @@
             <p>
               <span class="btn btn-info">{{age}}</span>
               <span class="btn btn-warning">{{currentUser.gender}}</span>
-              <span class="btn btn-danger">
+              <span class="btn btn-danger" (click)="logout()">
                 <span class="glyphicon glyphicon-log-out"></span>Logout
               </span>
             </p>
@@ -26,18 +26,16 @@
 
   <div class="row" style="margin-top:50px;">
     <div class="col-sm" (click)="startTest('temp')">
-      <img class="center" height="160" width="150" src="https://cdn4.iconfinder.com/data/icons/weather-conditions/512/hot_temperature-512.png"
-      />
+      <img class="center" height="160" width="150" src="../assets/hot_temperature-512.png" />
     </div>
     <div class="col-sm" (click)="startTest('bp')">
-      <img height="160" width="150" src="https://cdn2.iconfinder.com/data/icons/medical-and-health-care-service-icons/512/2-05-256.png"
-      />
+      <img height="160" width="150" src="../assets/2-05-256.png" />
     </div>
     <div class="col-sm" (click)="startTest('emg')">
-      <img height="160" width="150" src="http://e-health.futurenet.com.pk/images/emg.png" />
+      <img height="160" width="150" src="../assets/emg.png" />
     </div>
     <div class="col-sm" (click)="startTest('ecg')">
-      <img height="160" width="150" src="https://cdn0.iconfinder.com/data/icons/medical-5/450/pulse-512.png" />
+      <img height="160" width="150" src="../assets/pulse-512.png" />
     </div>
   </div>
 

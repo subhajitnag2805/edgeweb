@@ -76,4 +76,9 @@ export class DashboardComponent implements OnInit {
     return age;
   };
 
+  public logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
 }
