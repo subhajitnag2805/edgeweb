@@ -7,6 +7,7 @@ import { HttpService } from '../http.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   //others
