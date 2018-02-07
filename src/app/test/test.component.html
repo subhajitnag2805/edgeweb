@@ -1,4 +1,6 @@
 <div class="container">
+
+  <button *ngIf="isTestDone" class="btn btn-default btn-success btn-lg btn-block btn-huge" (click)="dashboardPage()">done</button>
   <!-- initial state -->
   <div class="row">
     <div class="col-md-3 center">
@@ -22,11 +24,5 @@
           [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
       </div>
     </div>
-    <!-- <div class="col-md-6" style="margin-bottom: 10px">
-      <button (click)="push()">CLICK</button>
-    </div>
-    <div class="col-md-6" style="margin-bottom: 10px">
-      <button (click)="reset()">CLICK</button>
-    </div> -->
   </div>
 </div>
