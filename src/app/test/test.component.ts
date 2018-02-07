@@ -55,7 +55,7 @@ export class TestComponent implements OnInit {
     this.http = _http;
     let _base = this;
     if (localStorage.getItem(_base.router.url.split('/')[2]) != undefined || localStorage.getItem(_base.router.url.split('/')[2]) != null) {
-      _base.currentTestID = localStorage.getItem(_base.testType);
+      _base.currentTestID = localStorage.getItem(_base.router.url.split('/')[2]);
     }
   }
 
