@@ -56,9 +56,8 @@ export class TestComponent implements OnInit {
         _base.instruction = "Getting temperature";
         _base.tempTimer(5)
           .then(function () {
-            console.log("socket emit start");
-            _base.socket.emit('start', { status: '200' });
-            console.log("socket emit end");
+            _base.instruction = "Please wait . . .";
+            _base.socket.emit('start', { status: 'temperature' });
           });
         break;
       case 'bp':
@@ -102,8 +101,14 @@ export class TestComponent implements OnInit {
     });
   }
 
+  // socket subscriber
   ngOnInit() {
-
+    let _base = this;
+    _base.socket.on("value", function (data) {
+      let value = data.value;
+      let status = data.status;
+      _base.render(status, value);
+    });
   }
 
   public push(data): void {
@@ -123,6 +128,11 @@ export class TestComponent implements OnInit {
     _lineChartData[0].data = [];
     let _lineChartLabel: Array<any> = new Array(this.lineChartLabels.length - this.lineChartLabels.length);
     this.lineChartData = _lineChartData;
+  }
+
+  public render(type: string, data: any) {
+    let _base = this;
+    _base.instruction = "Current " + type + " value is : " + data;
   }
 
 }
