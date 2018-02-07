@@ -53,6 +53,10 @@ export class TestComponent implements OnInit {
     this.router = _router;
     this.socket = io('http://localhost:7000');
     this.http = _http;
+    let _base = this;
+    if (localStorage.getItem(_base.testType) != undefined || localStorage.getItem(_base.testType) != null) {
+      _base.currentTestID = localStorage.getItem(_base.testType);
+    }
   }
 
   startTest() {
@@ -113,6 +117,7 @@ export class TestComponent implements OnInit {
   // socket subscriber
   ngOnInit() {
     let _base = this;
+
     _base.socketID = _base.socket.on("value", function (data) {
       let value = data.value;
       let status = data.status;
@@ -185,6 +190,7 @@ export class TestComponent implements OnInit {
       .then(function (success) {
         _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0]._id;
         console.log("current test id", _base.currentTestID);
+        localStorage.setItem(_base.testType, _base.currentTestID.toString());
         alert("Data saved");
         _base.isTestDone = true;
         _base.retryTest();

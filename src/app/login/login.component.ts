@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit {
     this.currentState = "phone";
     this.router = _router;
     this.http = http;
+
+    // clear local storage
+    localStorage.clear();
   }
 
   ngOnInit() {
