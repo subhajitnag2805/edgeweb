@@ -180,7 +180,7 @@ export class TestComponent implements OnInit {
     let _base = this;
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
-        _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0].id;
+        _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0]._id;
         console.log("current test id", _base.currentTestID);
         alert("Data saved");
         _base.isTestDone = true;
