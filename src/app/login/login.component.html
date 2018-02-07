@@ -7,11 +7,11 @@
           <div id="login-form">
             <div class="form-group" [hidden]="currentState=='code'">
               <label for="email" class="sr-only">Phone Number</label>
-              <input type="number" name="email" id="email" class="form-control" placeholder="9734072595" [(ngModel)]="phone">
+              <input type="number" name="email" id="email" class="form-control" placeholder="9734072595" [(ngModel)]="phone" value="9734072595">
             </div>
             <div class="form-group" [hidden]="currentState=='phone'">
               <label for="key" class="sr-only">O.T.P</label>
-              <input type="number" name="key" id="key" class="form-control" placeholder="2912" [(ngModel)]="code">
+              <input type="number" name="key" id="key" class="form-control" placeholder="2912" [(ngModel)]="code" value="2912">
             </div>
             <button id="btn-login" class="btn btn-custom btn-lg btn-block" (click)="submit()">{{(currentState == 'phone')?'Send Code':'Verify Code'}}</button>
           </div>
