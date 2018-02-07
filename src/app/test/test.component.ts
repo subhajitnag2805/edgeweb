@@ -18,6 +18,8 @@ export class TestComponent implements OnInit {
   socket: any;
   http: any;
 
+  public currentTestID: String = '';
+
   public isTestDone: boolean = false;
 
   public testType: string = ""; // temp , bp, ecg , emg
@@ -177,6 +179,7 @@ export class TestComponent implements OnInit {
     let _base = this;
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
+        console.log("success", success);
         alert("Data saved");
         _base.isTestDone = true;
         _base.retryTest();
@@ -185,7 +188,6 @@ export class TestComponent implements OnInit {
         _base.isTestDone = true;
         _base.retryTest();
       });
-
   }
 
   dashboardPage() {

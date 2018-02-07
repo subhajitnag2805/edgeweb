@@ -7,6 +7,7 @@ import { HttpService } from '../http.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   //others
@@ -75,5 +76,10 @@ export class DashboardComponent implements OnInit {
     var age = now.getFullYear() - bdate.getFullYear();
     return age;
   };
+
+  public logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 
 }
