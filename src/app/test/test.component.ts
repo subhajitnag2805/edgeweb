@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { setTimeout, clearInterval } from 'timers';
 import * as io from 'socket.io-client';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-test',
@@ -15,6 +16,9 @@ export class TestComponent implements OnInit {
   //others
   router: Router;
   socket: any;
+  http: any;
+
+  public isTestDone: boolean = false;
 
   public testType: string = ""; // temp , bp, ecg , emg
 
@@ -41,9 +45,10 @@ export class TestComponent implements OnInit {
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
 
-  constructor(_router: Router) {
+  constructor(_router: Router, _http: HttpService) {
     this.router = _router;
     this.socket = io('http://localhost:7000');
+    this.http = _http;
   }
 
   startTest() {
@@ -108,6 +113,30 @@ export class TestComponent implements OnInit {
       let value = data.value;
       let status = data.status;
       _base.render(status, value);
+      let sensorData = {
+
+      };
+
+      switch (status) {
+        case 'temperature':
+          sensorData = {
+            time: localStorage.getItem("session"),
+            id: localStorage.getItem("userid"),
+            bodyTemparature: value
+          }
+          _base.saveTestData(sensorData);
+          break;
+        case 'bp':
+          break;
+        case 'emg':
+          break;
+        case 'ecg':
+          break;
+        default:
+          console.log("abc");
+          break;
+      }
+
     });
   }
 
@@ -142,6 +171,31 @@ export class TestComponent implements OnInit {
   public _temp_cTof(celsius) {
     // parseFloat
     return celsius * 9 / 5 + 32;
+  }
+
+  saveTestData(sensorData: any) {
+    let _base = this;
+    _base.http.sendDataTOLocalDB(sensorData)
+      .then(function (success) {
+        alert("Data saved");
+        _base.isTestDone = true;
+        _base.retryTest();
+      }, function (error) {
+        console.log("Error saving data");
+        _base.isTestDone = true;
+        _base.retryTest();
+      });
+
+  }
+
+  dashboardPage() {
+    this.router.navigate(['/dashboard', localStorage.getItem("phone")]);
+  }
+
+  retryTest() {
+    let _base = this;
+    _base.testType = "";
+    _base.instruction = "Press start test button to retry";
   }
 
 }

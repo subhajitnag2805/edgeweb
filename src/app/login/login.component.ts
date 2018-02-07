@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   public currentState: string = "";  // phone , code
 
   // vaule variable
-  public phone: any;
-  public code: any;
+  public phone: any = 9734072595;
+  public code: any = 2912;
   public userID: any = 0;
 
   //others
@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
         .then(function (success) {
           console.log(success);
           _base.currentState = "phone";
+          localStorage.setItem("phone", _base.phone);
           _base.router.navigate(['/dashboard', _base.phone]);
         }, function (error) {
           console.log(error);

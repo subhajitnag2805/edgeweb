@@ -108,6 +108,36 @@ export class HttpService {
     });
   }
 
-  sendDataTOLocal
+  /**
+   * Send data to loca server
+   * 
+   * api : updateSensorValues
+   * 
+   * {
+   *     time:string,
+   *     id:string,
+   *     bodyTemparature   // spelling mistake by Subhajit - considering
+   * }
+   * 
+   * **/
+  public sendDataTOLocalDB(sensorData: any) {
+    let _base = this;
+    // ...using get request
+    return new Promise(function (resolve, reject) {
+      // let bodyString = JSON.stringify(body); // Stringify payload
+      let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+      let options = new RequestOptions({ headers: headers }); // Create a request option
+      return _base.http.put(_base.localDBURL + '/updateSensorValues', sensorData, options)
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+        .subscribe(
+        success => {
+          resolve(success);
+        },
+        err => {
+          reject(err);
+        });
+    });
+  }
 
 }
