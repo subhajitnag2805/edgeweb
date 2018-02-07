@@ -124,7 +124,8 @@ export class TestComponent implements OnInit {
           sensorData = {
             time: localStorage.getItem("session"),
             id: localStorage.getItem("userid"),
-            bodyTemparature: value
+            bodyTemparature: value,
+            tempId: _base.currentTestID
           }
           _base.saveTestData(sensorData);
           break;
@@ -179,7 +180,8 @@ export class TestComponent implements OnInit {
     let _base = this;
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
-        console.log("success", success);
+        _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0].id;
+        console.log("current test id", _base.currentTestID);
         alert("Data saved");
         _base.isTestDone = true;
         _base.retryTest();
