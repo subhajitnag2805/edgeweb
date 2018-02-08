@@ -87,8 +87,9 @@ export class DashboardComponent implements OnInit {
     } else {
       console.log("Dashboard Page");
       _base.getTestData()
-        .then(function (success) {
+        .then(function (success: any) {
           console.log("success", success);
+          _base.currentData.bodyTemperature = success.Details.data[0].bodyTemparature;
         }, function (error) {
           console.log("Error fetching test data", error);
         });
