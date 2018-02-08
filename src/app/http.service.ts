@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 export class HttpService {
 
   public baseURL: string = "http://mitapi.memeinfotech.com:5020";
-  public localDBURL: string = "http://localhost:7000";
+  public  localDBURL: string = "http://localhost:7000";
 
   constructor(private http: Http) { }
 
