@@ -81,9 +81,13 @@ export class TestComponent implements OnInit {
         _base.instruction = "Getting E.M.G data";
         _base.tempTimer(5);
         break;
-      case 'ecg':
-        _base.instruction = "Getting E.C.G data";
-        _base.tempTimer(5);
+      case 'airflow':
+        _base.instruction = "Getting Airflow data";
+        _base.tempTimer(5)
+          .then(function () {
+            _base.instruction = "Please wait . . .";
+            _base.socket.emit('start', { status: 'airflow' });
+          });
         break;
       default:
         console.log("abc");
@@ -140,7 +144,14 @@ export class TestComponent implements OnInit {
           break;
         case 'emg':
           break;
-        case 'ecg':
+        case 'airflow':
+          sensorData = {
+            time: localStorage.getItem("session"),
+            id: localStorage.getItem("userid"),
+            airflow: value,
+            tempId: _base.currentTestID
+          }
+          _base.saveTestData(sensorData);
           break;
         default:
           console.log("abc");
@@ -173,8 +184,8 @@ export class TestComponent implements OnInit {
     let _base = this;
     if (type == 'temperature') {
       _base.instruction = "Current " + type + " is : " + data + " °  or " + this._temp_cTof(data) + "  ° F";
-    } else {
-      _base.instruction = "Current " + type + " value is : " + data;
+    } else if (type == 'airflow') {
+      _base.instruction = "Current " + type + " value is : " + data + " p.p.m";
     }
   }
 
