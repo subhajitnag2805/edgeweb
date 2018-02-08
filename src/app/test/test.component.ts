@@ -189,6 +189,7 @@ export class TestComponent implements OnInit {
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
         if (!success.error) {
+          console.log("last test id", success.Details.data[0]._id);
           _base.currentTestID = success.Details.data[0]._id;
           // _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0]._id;
           localStorage.setItem(_base.testType, _base.currentTestID.toString());
