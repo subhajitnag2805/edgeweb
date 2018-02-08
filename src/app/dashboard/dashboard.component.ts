@@ -22,35 +22,6 @@ export class DashboardComponent implements OnInit {
     let _base = this;
     _base.router = _router;
     _base.http = _http;
-    _base.phone = this.router.url.split('/')[2];
-    console.log(this.phone);
-    this.getUser(this.phone)
-      .then(function (success: any) {
-        _base.currentUser = success.profile;
-        localStorage.setItem("userid", _base.currentUser._id);
-        _base.age = _base.getAge(_base.currentUser.dob);
-
-        console.log("Localstorage session", localStorage.getItem("session"));
-        if (localStorage.getItem("session") == undefined || localStorage.getItem("session") == null) {
-          let sessionTime = new Date().getTime().toString();
-          localStorage.setItem("session", sessionTime);
-          let localRegisterData = {
-            name: _base.currentUser.name,
-            email: _base.currentUser.email,
-            id: _base.currentUser._id,
-            loginTime: new Date(),
-            time: sessionTime
-          };
-          _base.http.localRegister(localRegisterData)
-            .then(function (success) {
-              alert("You have been registerted locally");
-            }, function (error) {
-              console.log(error);
-            });
-        }
-      }, function (error) {
-        alert('Error fetching user ');
-      });
   }
 
   getUser(phone: string) {
@@ -67,14 +38,56 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Dashboard Page");
+
     let _base = this;
-    _base.getTestData()
-      .then(function (success) {
-        console.log("success", success);
-      }, function (error) {
-        console.log("Error fetching test data", error);
-      });
+    _base.phone = this.router.url.split('/')[2];
+    console.log(this.phone);
+    if (localStorage.getItem("userid") == undefined || localStorage.getItem("userid") == null) {
+
+      this.getUser(this.phone)
+        .then(function (success: any) {
+          _base.currentUser = success.profile;
+          localStorage.setItem("userid", _base.currentUser._id);
+          _base.age = _base.getAge(_base.currentUser.dob);
+
+          console.log("Localstorage session", localStorage.getItem("session"));
+          if (localStorage.getItem("session") == undefined || localStorage.getItem("session") == null) {
+            let sessionTime = new Date().getTime().toString();
+            localStorage.setItem("session", sessionTime);
+            let localRegisterData = {
+              name: _base.currentUser.name,
+              email: _base.currentUser.email,
+              id: _base.currentUser._id,
+              loginTime: new Date(),
+              time: sessionTime
+            };
+            _base.http.localRegister(localRegisterData)
+              .then(function (success) {
+                console.log("Dashboard Page");
+                _base.getTestData()
+                  .then(function (success) {
+                    console.log("success", success);
+                  }, function (error) {
+                    console.log("Error fetching test data", error);
+                  });
+                alert("You have been registerted locally");
+              }, function (error) {
+                console.log(error);
+              });
+          }
+        }, function (error) {
+          alert('Error fetching user ');
+        });
+
+    } else {
+      console.log("Dashboard Page");
+      _base.getTestData()
+        .then(function (success) {
+          console.log("success", success);
+        }, function (error) {
+          console.log("Error fetching test data", error);
+        });
+    }
   }
 
   // to test
