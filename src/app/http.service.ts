@@ -157,7 +157,7 @@ export class HttpService {
       // let bodyString = JSON.stringify(body); // Stringify payload
       let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
       let options = new RequestOptions({ headers: headers }); // Create a request option
-      return _base.http.get(_base.baseURL + '/gettingPreviousValues?time=' + time + "&id=" + id, options)
+      return _base.http.get(_base.localDBURL + '/gettingPreviousValues?time=' + time + "&id=" + id, options)
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
         .subscribe(
