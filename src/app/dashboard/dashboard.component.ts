@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
 
   currentUser: any = {};
 
+  currentData: any = {};
+
   constructor(_router: Router, _http: HttpService) {
     let _base = this;
     _base.router = _router;
@@ -65,8 +67,9 @@ export class DashboardComponent implements OnInit {
               .then(function (success) {
                 console.log("Dashboard Page");
                 _base.getTestData()
-                  .then(function (success) {
+                  .then(function (success: any) {
                     console.log("success", success);
+                    _base.currentData = success.Details.data;
                   }, function (error) {
                     console.log("Error fetching test data", error);
                   });
