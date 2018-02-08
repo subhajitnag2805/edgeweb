@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit {
                 console.log("Dashboard Page");
                 _base.getTestData()
                   .then(function (success: any) {
-                    console.log("success", success.Details.data[0]);
+                    console.log("success", success);
                   }, function (error) {
                     console.log("Error fetching test data", error);
                   });
@@ -89,7 +89,6 @@ export class DashboardComponent implements OnInit {
         .then(function (success: any) {
           console.log("success", success);
           _base.currentData.bodyTemperature = success.Details.data[0].bodyTemparature;
-          console.log("Body temperature",_base.currentData.bodyTemperature );
         }, function (error) {
           console.log("Error fetching test data", error);
         });
@@ -125,6 +124,11 @@ export class DashboardComponent implements OnInit {
           reject(error);
         });
     });
+  }
+
+  public _temp_cTof(celsius) {
+    // parseFloat
+    return (celsius * 9 / 5 + 32).toFixed(2);
   }
 
 }
