@@ -18,7 +18,9 @@ export class DashboardComponent implements OnInit {
 
   currentUser: any = {};
 
-  currentData: any = {};
+  currentData: any = {
+    bodyTemperature: null
+  };
 
   constructor(_router: Router, _http: HttpService) {
     let _base = this;
@@ -69,7 +71,7 @@ export class DashboardComponent implements OnInit {
                 _base.getTestData()
                   .then(function (success: any) {
                     console.log("success", success);
-                    _base.currentData = success.Details.data;
+                    _base.currentData.bodyTemperature = success.Details.data[0].bodyTemparature;
                   }, function (error) {
                     console.log("Error fetching test data", error);
                   });
