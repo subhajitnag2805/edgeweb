@@ -188,13 +188,14 @@ export class TestComponent implements OnInit {
 
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
-        _base.currentTestID = success.data[0]._id;
-        // _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0]._id;
-        console.log("current test id", _base.currentTestID);
-        localStorage.setItem(_base.testType, _base.currentTestID.toString());
-        alert("Data saved");
-        _base.isTestDone = true;
-        _base.retryTest();
+        if (!success.error) {
+          _base.currentTestID = success.Details.data[0]._id;
+          // _base.currentTestID = success.Details.value[success.Details.value.length - 1].data[0]._id;
+          localStorage.setItem(_base.testType, _base.currentTestID.toString());
+          alert("Data saved");
+          _base.isTestDone = true;
+          _base.retryTest();
+        }
       }, function (error) {
         console.log("Error saving data");
         _base.isTestDone = true;
