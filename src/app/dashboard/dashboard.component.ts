@@ -67,6 +67,14 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("Dashboard Page");
+    let _base = this;
+    _base.getTestData()
+      .then(function (success) {
+        console.log("success", success);
+      }, function (error) {
+        console.log("Error fetching test data", error);
+      });
   }
 
   // to test
@@ -84,6 +92,20 @@ export class DashboardComponent implements OnInit {
   public logout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  public getTestData() {
+    let id = localStorage.getItem("userid");
+    let time = localStorage.getItem("session");
+    let _base = this;
+    return new Promise(function (resolve, reject) {
+      _base.http.getTestData(time, id)
+        .then(function (success) {
+          resolve(success);
+        }, function (error) {
+          reject(error);
+        });
+    });
   }
 
 }
