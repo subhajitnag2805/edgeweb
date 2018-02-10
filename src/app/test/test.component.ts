@@ -196,6 +196,7 @@ export class TestComponent implements OnInit {
 
   saveTestData(sensorData: any) {
     let _base = this;
+    _base.retryTest();
 
     _base.http.sendDataTOLocalDB(sensorData)
       .then(function (success) {
