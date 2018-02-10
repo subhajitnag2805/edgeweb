@@ -81,12 +81,12 @@ export class TestComponent implements OnInit {
         _base.instruction = "Getting E.M.G data";
         _base.tempTimer(5);
         break;
-      case 'airflow':
-        _base.instruction = "Getting Airflow data";
+      case 'glucose':
+        _base.instruction = "Getting glucose data";
         _base.tempTimer(5)
           .then(function () {
             _base.instruction = "Please wait . . .";
-            _base.socket.emit('start', { status: 'airflow' });
+            _base.socket.emit('start', { status: 'glucose' });
           });
         break;
       default:
@@ -144,11 +144,11 @@ export class TestComponent implements OnInit {
           break;
         case 'emg':
           break;
-        case 'airflow':
+        case 'glucose':
           sensorData = {
             time: localStorage.getItem("session"),
             id: localStorage.getItem("userid"),
-            airflow: value,
+            glucose: value,
             tempId: _base.currentTestID
           }
           _base.saveTestData(sensorData);
@@ -184,7 +184,7 @@ export class TestComponent implements OnInit {
     let _base = this;
     if (type == 'temperature') {
       _base.instruction = "Current " + type + " is : " + data + " °  or " + this._temp_cTof(data) + "  ° F";
-    } else if (type == 'airflow') {
+    } else if (type == 'glucose') {
       _base.instruction = "Current " + type + " value is : " + data + " p.p.m";
     }
   }

@@ -19,7 +19,8 @@ export class DashboardComponent implements OnInit {
   currentUser: any = {};
 
   currentData: any = {
-    bodyTemperature: null
+    bodyTemperature: null,
+    glucose: null
   };
 
   constructor(_router: Router, _http: HttpService) {
@@ -68,12 +69,12 @@ export class DashboardComponent implements OnInit {
             _base.http.localRegister(localRegisterData)
               .then(function (success) {
                 console.log("Dashboard Page");
-                _base.getTestData()
-                  .then(function (success: any) {
-                    console.log("success", success);
-                  }, function (error) {
-                    console.log("Error fetching test data", error);
-                  });
+                // _base.getTestData()
+                //   .then(function (success: any) {
+                //     console.log("success", success);
+                //   }, function (error) {
+                //     console.log("Error fetching test data", error);
+                //   });
                 alert("You have been registerted locally");
               }, function (error) {
                 console.log(error);
@@ -85,13 +86,13 @@ export class DashboardComponent implements OnInit {
 
     } else {
       console.log("Dashboard Page");
-      _base.getTestData()
-        .then(function (success: any) {
-          console.log("success", success);
-          _base.currentData.bodyTemperature = success.Details.data[0].bodyTemparature;
-        }, function (error) {
-          console.log("Error fetching test data", error);
-        });
+      // _base.getTestData()
+      //   .then(function (success: any) {
+      //     console.log("success", success);
+      //     _base.currentData.bodyTemperature = success.Details.data[0].bodyTemparature;
+      //   }, function (error) {
+      //     console.log("Error fetching test data", error);
+      //   });
     }
   }
 
