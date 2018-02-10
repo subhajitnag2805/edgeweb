@@ -67,7 +67,7 @@ export class TestComponent implements OnInit {
     switch (this.testType) {
       case 'temp':
         _base.instruction = "Getting temperature";
-        _base.tempTimer(5)
+        _base.tempTimer(60)
           .then(function () {
             _base.instruction = "Please wait . . .";
             _base.socket.emit('start', { status: 'temperature' });
@@ -183,7 +183,7 @@ export class TestComponent implements OnInit {
   public render(type: string, data: any) {
     let _base = this;
     if (type == 'temperature') {
-      _base.instruction = "Current " + type + " is : " + data + " °  or " + this._temp_cTof(data) + "  ° F";
+      _base.instruction = "Current " + type + " is : " + data + " ° C or " + this._temp_cTof(data) + "  ° F";
     } else if (type == 'glucose') {
       _base.instruction = "Current " + type + " value is : " + data + " p.p.m";
     }
