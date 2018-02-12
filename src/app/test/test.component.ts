@@ -67,7 +67,7 @@ export class TestComponent implements OnInit {
     switch (this.testType) {
       case 'temp':
         _base.instruction = "Getting temperature";
-        _base.tempTimer(60)
+        _base.tempTimer(5)
           .then(function () {
             _base.instruction = "Please wait . . .";
             _base.socket.emit('start', { status: 'temperature' });
