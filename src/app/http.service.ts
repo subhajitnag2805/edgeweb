@@ -95,7 +95,7 @@ export class HttpService {
       // let bodyString = JSON.stringify(body); // Stringify payload
       let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
       let options = new RequestOptions({ headers: headers }); // Create a request option
-      return _base.http.post(_base.localDBURL + '/userRegistration', registerData, options)
+      return _base.http.post(_base.localDBURL + '/registrationAndLogin', registerData, options)
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
         .subscribe(
@@ -127,7 +127,7 @@ export class HttpService {
       // let bodyString = JSON.stringify(body); // Stringify payload
       let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
       let options = new RequestOptions({ headers: headers }); // Create a request option
-      return _base.http.put(_base.localDBURL + '/updateSensorValues', sensorData, options)
+      return _base.http.put(_base.localDBURL + '/sensorValues', sensorData, options)
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
         .subscribe(

@@ -63,8 +63,7 @@ export class DashboardComponent implements OnInit {
               name: _base.currentUser.name,
               email: _base.currentUser.email,
               id: _base.currentUser._id,
-              loginTime: new Date(),
-              time: sessionTime
+              loginTime: sessionTime,
             };
             _base.http.localRegister(localRegisterData)
               .then(function (success) {
