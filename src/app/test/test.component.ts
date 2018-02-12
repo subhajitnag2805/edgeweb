@@ -77,9 +77,13 @@ export class TestComponent implements OnInit {
         _base.instruction = "Getting B.P data";
         _base.tempTimer(5);
         break;
-      case 'emg':
-        _base.instruction = "Getting E.M.G data";
-        _base.tempTimer(5);
+      case 'gsr':
+        _base.instruction = "Getting G.S.R data";
+        _base.tempTimer(5)
+        .then(function () {
+            _base.instruction = "Please wait . . .";
+            _base.socket.emit('start', { status: 'gsr' });
+          });
         break;
       case 'glucose':
         _base.instruction = "Getting glucose data";
@@ -143,11 +147,16 @@ export class TestComponent implements OnInit {
           break;
         case 'emg':
           break;
-        case 'glucose':
+        case 'gsr':
+          let data = value.split("A");
           sensorData = {
             time: localStorage.getItem("session"),
             id: localStorage.getItem("userid"),
-            glucose: value,
+            gsr: {
+                    conductance:data[0],
+                    resistance:data[1],
+                    conductanceVol:data[2]            
+            },
             tempId: _base.currentTestID
           }
           _base.saveTestData(sensorData);
